@@ -1,0 +1,2 @@
+Enron Emails: http://www.cs.cmu.edu/~enron/
+Weka Classifier (to start with): https://github.com/ParakweetLabs/EmailIntentDataSet
