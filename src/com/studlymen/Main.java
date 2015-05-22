@@ -9,6 +9,9 @@ public class Main
     {
         TextDirectoryLoader loader = new TextDirectoryLoader();
 
-        System.out.print("Hello Studly Men!");
+        System.out.println("Hello Studly Men! \n\nSam... you're such a class act. :3");
+        
+        //Testing out the new database object
+        NGramDatabase db = new NGramDatabase();
     }
 }
