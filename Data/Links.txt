@@ -1,2 +1,4 @@
+List of data repositories: http://www.kdnuggets.com/datasets/index.html
+
 Enron Emails: http://www.cs.cmu.edu/~enron/
 Weka Classifier (to start with): https://github.com/ParakweetLabs/EmailIntentDataSet
