@@ -3,6 +3,8 @@ package com.studlymen;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -42,8 +44,30 @@ public class FileToDB
 	{
 		for(String file : mFileNames)
 		{
-			parseFile(file);
+			//"home/you/Desktop"
+			if(file.endsWith("/*"))
+			{
+				file = file.substring(0,file.length() - 2);
+				try {
+					Files.walk(Paths.get(file)).forEach(filePath -> {
+					    if (Files.isRegularFile(filePath)) {
+					    	parseFile(filePath.toString());
+					    }
+					});
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			else
+				parseFile(file);
 		}
+
+		//HashMap<List<String>, Integer> map = mNGramTables.get(0);
+	    for(HashMap<List<String>, Integer> map : mNGramTables) {
+	    	HashMap<List<String>, Integer> map1 = (HashMap<List<String>, Integer>) sortByValue(map);
+	    	map1.forEach(this::printEntry);
+	    }
 	}
 	
 	private String getNext(Scanner s)
@@ -155,10 +179,7 @@ public class FileToDB
 	    }*/
 	    sc2.close();
 	    
-	    for(HashMap<List<String>, Integer> map : mNGramTables) {
-	    	HashMap<List<String>, Integer> map1 = (HashMap<List<String>, Integer>) sortByValue(map);
-	    	map1.forEach(this::printEntry);
-	    } 
+
 
 	    
 	    /*while (sc2.hasNextLine()) {
