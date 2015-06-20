@@ -13,5 +13,6 @@ public class Main
         
         //Testing out the new database object
         NGramDatabase db = new NGramDatabase();
+        NGramDatabase.GenerateTables(db, 3); // Generate the ngram tables
     }
 }
