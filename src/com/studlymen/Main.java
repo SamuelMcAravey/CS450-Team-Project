@@ -2,10 +2,12 @@ package com.studlymen;
 
 import weka.core.converters.*;
 
+import java.io.IOException;
+
 public class Main
 {
 
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException
     {
         TextDirectoryLoader loader = new TextDirectoryLoader();
 
@@ -13,6 +15,11 @@ public class Main
         
         //Testing out the new database object
         NGramDatabase db = new NGramDatabase();
-        NGramDatabase.GenerateTables(db, 3); // Generate the ngram tables
+        //NGramDatabase.GenerateTables(db, 3); // Generate the ngram tables
+
+        String fileNames[] = {"foo.txt"};
+        int nGramLengths[] = {2,3};
+
+        FileParser.Parse("C:\\Develop\\GitHub\\CS450-Team-Project\\books\\10080.txt", 3);
     }
 }
