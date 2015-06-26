@@ -18,7 +18,7 @@ public class Main
         TextDirectoryLoader loader = new TextDirectoryLoader();
 
         System.out.println("Hello Studly Men! \n\nSam... you're such a class act. :3");
-        
+
         //Testing out the new database object
         NGramDatabase db = new NGramDatabase();
         NGramDatabase.GenerateTables(db, 3); // Generate the ngram tables
@@ -62,10 +62,8 @@ public class Main
 /**
  * ...and here.
  */
-       
+        HashMap<Integer, HashMap<String, Pair<Integer,List<String>>>> wordMaps = null;//FileParser.Parse("C:\\Develop\\GitHub\\CS450-Team-Project\\books\\10080.txt", 3);
 
-        
-//      HashMap<Integer, HashMap<String, Pair<Integer,List<String>>>> wordMaps = FileParser.Parse("C:\\Develop\\GitHub\\CS450-Team-Project\\books\\10080.txt", 3);
 
         
         for (int i = 1; i <= 3; i++)
@@ -94,3 +92,4 @@ public class Main
         }
     }
 }
+
