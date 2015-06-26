@@ -23,6 +23,7 @@ public class FileToDB
 	private String mDbFileName;
 	private int mNGramLengths[];
 	private ArrayList<HashMap<List<String>, Integer>> mNGramTables;
+
 	private int mLargestNGram;
 	private NGramBuffer mBuffer;
 	

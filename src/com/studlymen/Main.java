@@ -1,9 +1,11 @@
 package com.studlymen;
 
 import org.javatuples.Pair;
+
 import weka.core.converters.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -21,11 +23,51 @@ public class Main
         NGramDatabase db = new NGramDatabase();
         NGramDatabase.GenerateTables(db, 3); // Generate the ngram tables
 
-        String fileNames[] = {"foo.txt"};
+        
+        
+/**
+ *  Hey JOSH!!!!!!!!!      
+ *  Implement the following between here....
+ */
+        String fileNames[] = {"books/*"};
         int nGramLengths[] = {2,3};
+        String dbFileName = "ngram.db";
 
-        HashMap<Integer, HashMap<String, Pair<Integer,List<String>>>> wordMaps = FileParser.Parse("C:\\Develop\\GitHub\\CS450-Team-Project\\books\\10080.txt", 3);
+        FileToDB ftDB = new FileToDB(fileNames, dbFileName, nGramLengths);
+        //ftDB.run();
+        
+        //In FileToDB
+        // write a function
+        // i.e.
+        /*
+        run() {
+        	parse(); // this initializes mNGramTables.
+        	NGramDatabase.insert(mNGramTables); // this will insert mNGramTables into the databse as below.
+    	}
+    	
+    	*/
+        
+        //In NGramDatabse.insert()
+        /*
+          insert() {
+          		for(int i = 0; i < nGramLengths.length; i++) {
+        			HashMap<List<String>, Integer> table = nGramTables.get(i);
+        			//..for each loop put table into the database with the List<String> as the word columns and the Integer as the count.
+        			//using the SQL batch insert statement.
+        		}
+        }
+          }
+         */
+        
+/**
+ * ...and here.
+ */
+       
 
+        
+//      HashMap<Integer, HashMap<String, Pair<Integer,List<String>>>> wordMaps = FileParser.Parse("C:\\Develop\\GitHub\\CS450-Team-Project\\books\\10080.txt", 3);
+
+        
         for (int i = 1; i <= 3; i++)
         {
             Collection<Pair<Integer,List<String>>> nGramPairs = wordMaps.get(i).values();
