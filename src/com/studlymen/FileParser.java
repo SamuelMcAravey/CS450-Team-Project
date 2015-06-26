@@ -1,6 +1,6 @@
 package com.studlymen;
 
-import weka.core.PropertyPath;
+import org.javatuples.Pair;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,32 +14,38 @@ import java.util.List;
  */
 public class FileParser
 {
-    public static void Parse(String filePath, int nGramSize) throws IOException
+    public static HashMap<Integer, HashMap<String, Pair<Integer,List<String>>>> Parse(String filePath, int nGramSize) throws IOException
     {
+        HashMap<Integer, HashMap<String, Pair<Integer,List<String>>>> wordMaps = new HashMap<>();
+        HashMap<Integer, List<String>> wordHistory = new HashMap<>();
+
         List<String> lines = Files.readAllLines(Paths.get(filePath));
         for (int i = 0; i < lines.size(); i++)
         {
             String line = lines.get(i);
-            String[] words = line.split("\\s+");
+            String[] words = line.replaceAll("[^a-zA-Z ]", "").toLowerCase().split("\\s+");
             for (int j = 0; j < words.length; j++)
             {
                 if (!words[j].isEmpty())
-                    ParseWord(words[j], nGramSize);
+                    ParseWord(words[j], nGramSize, wordMaps, wordHistory);
             }
         }
+        return wordMaps;
     }
 
-    static HashMap<Integer, HashMap<String, Integer>> wordMaps = new HashMap<Integer, HashMap<String, Integer>>();
-    static HashMap<Integer, List<String>> wordHistory = new HashMap<Integer, List<String>>();
 
-    private static void ParseWord(String word, int nGramSize)
+    private static void ParseWord(
+            String word,
+            int nGramSize,
+            HashMap<Integer, HashMap<String, Pair<Integer, List<String>>>> wordMaps,
+            HashMap<Integer, List<String>> wordHistory)
     {
         if (!wordMaps.containsKey(nGramSize))
-            wordMaps.put(nGramSize, new HashMap<String, Integer>());
+            wordMaps.put(nGramSize, new HashMap<>());
         if (!wordHistory.containsKey(nGramSize))
-            wordHistory.put(nGramSize, new ArrayList<String>());
+            wordHistory.put(nGramSize, new ArrayList<>());
 
-        HashMap<String, Integer> currentWordMap = wordMaps.get(nGramSize);
+        HashMap<String, Pair<Integer,List<String>>> currentWordMap = wordMaps.get(nGramSize);
         List<String> history = wordHistory.get(nGramSize);
 
         history.add(word);
@@ -54,12 +60,19 @@ public class FileParser
         if (history.size() == nGramSize)
         {
             if (currentWordMap.containsKey(historyString))
-                currentWordMap.put(historyString, currentWordMap.get(historyString) + 1);
+            {
+                Pair<Integer,List<String>> currentNGram = currentWordMap.get(historyString);
+                Pair<Integer,List<String>> updatedNGram = new Pair<>(currentNGram.getValue0() + 1, currentNGram.getValue1());
+                currentWordMap.put(historyString, updatedNGram);
+            }
             else
-                currentWordMap.put(historyString, 1);
+            {
+                Pair<Integer,List<String>> newNGram = new Pair<>(1, new ArrayList<>(history));
+                currentWordMap.put(historyString, newNGram);
+            }
         }
 
         if (nGramSize > 1)
-            ParseWord(word, nGramSize - 1);
+            ParseWord(word, nGramSize - 1, wordMaps, wordHistory);
     }
 }
