@@ -35,7 +35,7 @@ public class NGramDatabase
 	{
 		for (int i = 1; i <= nGramCount; i++)
 		{
-            String columns = "word0 varchar(50)";
+            String columns = "occurrenceCount int, word0 varchar(50)";
             for (int j = 1; j <= i; j++)
             {
                 columns += ", word" + j + " varchar(50)";
