@@ -8,5 +8,6 @@ public class LdaClassifier
 {
     public LdaClassifier()
     {
+    	
     }
 }
